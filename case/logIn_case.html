@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Case</title>
+</head>
+<style>
+    .hLeft {
+        width: 400px;
+        height: 100px;
+        float: left;
+        text-align: center;
+    }
+
+    .hRight {
+        width: 950px;
+        height: 50px;
+        float: left;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    #menu {
+        float: left;
+    }
+
+    #menu ul li {
+        list-style-type: none;
+        display: inline;
+        margin-left: 50px;
+    }
+
+    .banner {
+        border: 1px solid rgb(0, 72, 61);
+        height: 120px;
+        background-color: rgb(0, 72, 61);
+    }
+
+    #menu {
+        font-family: Helvetica, sans-serif;
+        font-size: 13px;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+
+    #menu ul li {
+        color: #FFF;
+        text-decoration: none;
+        text-transform: uppercase;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    #menu ul li:visited {
+        color: #FFF;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+
+    #menu ul li:hover {
+        color: #FFF;
+        background-color: #81B101;
+        -webkit-box-shadow: 0 4px 5px rgba(50, 50, 50, 0.93);
+        -moz-box-shadow: 0 4px 5px rgba(50, 50, 50, 0.93);
+        box-shadow: 0 4px 5px rgba(50, 50, 50, 0.93);
+    }
+
+    article {
+        margin-left: 400px;
+        border-left: 1px solid gray;
+        padding: 1em;
+        overflow: hidden;
+    }
+
+    .img {
+        width: 200px;
+        height: 200px;
+    }
+
+    .item {
+        margin: 50px;
+        width: 250px;
+        height: 400px;
+        background: #fff;
+        box-shadow: 0 4px 6px #00000029;
+        border-radius: 8px;
+        text-align: center;
+        position: relative;
+    }
+
+    .display {
+        color: white;
+        padding: 16px;
+        font-size: 13px;
+        border: none;
+    }
+
+    .formDisplay {
+        position: relative;
+        display: inline-block;
+    }
+
+    .formDisplay-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    .formDisplay-content i {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .formDisplay-content i:hover {
+        background-color: #ddd;
+    }
+
+    .formDisplay:hover .formDisplay-content {
+        display: block;
+    }
+
+    .formDisplay:hover .display {
+        background-color: #3e8e41;
+    }
+
+    .formLogIn {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        margin: 0 auto;
+        border: 1px solid;
+        background-color: white;
+    }
+
+    .formLogIn-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+
+    .displayCart {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        margin: 0 auto;
+        border: 1px solid;
+        background-color: white;
+    }
+
+    .displayCart_content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+
+    td {
+        width: 200px;
+        height: 20px;
+    }
+</style>
+<body onload="localStorage.setItem('iLogIn', 'false')">
+<div class="banner">
+    <div class="hLeft">
+        <h1><img src="logo.jpg" style=" height: 80px; width: 200px"/></h1>
+
+    </div>
+
+    <div class="hRight">
+        <label><input id="search" type="text" placeholder="Hôm nay bạn cần tìm gì?" style="width: 500px; height: 20px"></label>
+        <button onclick="displayProduct(null,document.getElementById('search').value) ">Tìm kiếm</button>
+        <button>Đăng ký</button>
+        <button onclick="logIn()" id="logIn">Đăng nhập</button>
+    </div>
+
+    <div id="menu">
+        <ul>
+            <li onclick="home()">Trang chủ</li>
+            <li onclick="imfomafion()"> Giới thiệu
+            </li>
+            <ul class="formDisplay">
+                <li class="display" id="smartphoneDisplay" onclick="displayProduct()">Điện thoại</li>
+                <div class="formDisplay-content">
+                    <i id="iphone" onclick="displayProduct('iphone')">Iphone</i>
+                    <i id="samsung" onclick="displayProduct('samsung')">Samsung</i>
+                </div>
+            </ul>
+            <li>Laptop</li>
+            <li>Phụ kiện</li>
+            <li onclick='addProduct()'>Thêm mới</li>
+            <li onclick="displayCart()">Giỏ hàng</li>
+        </ul>
+    </div>
+</div>
+
+<div id="formLogIn" class="formLogIn">
+    <div class="formLogIn-content">
+        <h1>Đăng nhập</h1>
+        <h3>Tài khoản</h3>
+        <input type="text" id="nameLogIn" placeholder="Nhập tên đăng nhập" style="width: 300px; height: 20px">
+        <h3>Mật khẩu</h3>
+        <input type="password" id="passLogIn" placeholder="Nhập mật khẩu đăng nhập" style="width: 300px; height: 20px">
+        <br>
+        <br>
+        <input type="button" value="Submit" onclick="submit()" class="logInbtn">
+        <input type="reset" value="Reset" onclick="reset()" class="logInbtn">
+        <input type="button" value="Cancle" class="logInbtn"
+               onclick="document.getElementById('formLogIn').style.display = 'none'">
+    </div>
+</div>
+
+<div id="addProduct" class="addAndEdit" style="display: none">
+    <fieldset id="formAddProdcut">
+        <h3>Thêm sản phẩm mới</h3>
+        <input type="text" id="nameAdd" placeholder="Tên sản phẩm">
+        <input type="text" id="priceAdd" placeholder="Giá sản phẩm">
+        <input type="text" id="quantityAdd" placeholder="Số lượng sản phẩm">
+        <input type="text" id="imgAdd" placeholder="Link sản phẩm">
+        <input type="text" id="typeAdd" placeholder="Hãng sản phẩm">
+        <button class="logInbtn" onclick="addSuccess()">Thêm mới</button>
+        <button class="logInbtn" onclick="document.getElementById('addProduct').style.display = 'none'">Thoát</button>
+    </fieldset>
+</div>
+
+<div id="editProduct" class="addAndEdit" style="display: none">
+    <fieldset id="formEditProdcut">
+        <h3>Sửa sản phẩm</h3>
+        <input type="text" id="nameEdit" placeholder="Tên sản phẩm">
+        <input type="text" id="priceEdit" placeholder="Giá sản phẩm">
+        <input type="text" id="quantityEdit" placeholder="Số lượng sản phẩm">
+        <input type="text" id="imgEdit" placeholder="Link sản phẩm">
+        <input type="text" id="typeEdit" placeholder="Hãng sản phẩm">
+        <button class="logInbtn" onclick="updateProduct()">Cập nhật</button>
+    </fieldset>
+</div>
+
+<div id="displayCart" class="displayCart" style="display: none">
+    <h1 style="text-align: center">Giỏ hàng</h1>
+    <div id="displayCart_content" class="displayCart_content">
+    </div>
+    <br>
+    <div>
+        <button onclick="document.getElementById('displayCart').style.display = 'none'">Thoát</button>
+    </div>
+</div>
+
+<div id="home">Hello</div>
+
+<article id="introduce" style="display: none">
+    <h1 align="center"> Giới thiệu Hoàng Hà Mobile</h1>
+
+    <h3>Giới thiệu chung</h3>
+    Công ty Cổ phần Xây dựng và Đầu tư thương mại Hoàng Hà sở hữu chuỗi cửa hàng Hoàng Hà Mobile - là nhà bán lẻ hàng
+    đầu, chuyên cung cấp các sản phẩm công nghệ chính hãng tại thị trường Việt Nam. Năm 1996, Hoàng Hà Mobile được thành
+    lập, từng bước trở thành địa chỉ đáng tin cậy của người tiêu dùng Việt. Với khẩu hiệu “Nếu những gì chúng tôi không
+    có, nghĩa là bạn không cần”, chúng tôi đã, đang và sẽ tiếp tục nỗ lực đem đến các sản phẩm công nghệ chính hãng đa
+    dạng, phong phú đi kèm mức giá tốt nhất phục vụ nhu cầu của quý khách hàng.
+    <br>
+    <br>
+    Sau hơn 20 năm phát triển, Hoàng Hà Mobile đã trở thành cái tên không còn xa lạ với người tiêu dùng trong nước. Hiện
+    nay chúng tôi đang sở hữu mạng lưới hơn 100 chi nhánh phủ trên khắp cả nước, trong đó bao gồm hai trung tâm bảo hành
+    tại Hà Nội và một trung tâm bảo hành tại thành phố Hồ Chí Minh. Đến với chuỗi cửa hàng của Hoàng Hà Mobile, quý
+    khách có thể hoàn toàn yên tâm về uy tín, chất lượng sản phẩm với mức giá rẻ hơn khoảng 15-20% so với giá bán trên
+    thị trường. Song song với đó, chúng tôi cũng luôn nỗ lực phục vụ đem đến trải nghiệm dịch vụ tốt nhất cho khách
+    hàng.
+    <br>
+    <br>
+    <h3>Những dấu mốc quan trọng</h3>
+    <ul>
+        <li> Năm 1996: Thành lập cửa hàng Hoàng Hà Mobile đầu tiên tọa lạc trên con phố sầm uất của Thủ đô Hà Nội ở địa
+            chỉ 194 Lê Duẩn.
+        </li>
+        <li>Năm 2000: Hoàng Hà Mobile chính thức trở thành nhà phân phối ĐTDĐ chính hãng hợp tác với nhiều nhãn hàng lớn
+            hàng đầu như Samsung, OPPO, Nokia, Huawei,...
+        </li>
+        <li> Năm 2006: Với kinh nghiệm 10 năm trong lĩnh vực bán lẻ, Hoàng Hà Mobile phát triển mạnh mẽ và liên tục mở
+            thêm nhiều chi nhánh mới.
+        </li>
+        <li> Năm 2016: Kỉ niệm 20 năm hoạt động trong lĩnh vực bán lẻ các sản phẩm công nghệ, Hoàng Hà Mobile đã khẳng
+            định được chỗ đứng vững chắc trên thị trường cũng như trong tiềm thức người tiêu dùng.
+        </li>
+        <li> Năm 2019: Hoàng Hà Mobile chính thức hợp tác với ông lớn ngành viễn thông MobiFone Việt Nam mở chuỗi chi
+            nhánh bán hàng liên kết, nâng tổng số chi nhánh tới hơn 60, đồng thời phủ khắp 30 tỉnh thành trên cả nước.
+            Kể từ đó, Hoàng Hà Mobile liên tục đồng hành cùng MobiFone tổ chức các sự kiện lớn nhỏ.
+        </li>
+        <li> Năm 2020: Hoàng Hà Mobile tự hào trở thành nhà bán lẻ ủy quyền chính thức của Apple tại Việt Nam. Các sản
+            phẩm Apple chính hãng VN/A do Apple Việt Nam phân phối được bán tại hệ thống Hoàng Hà Mobile với mức giá tốt
+            nhất thị trường cùng chế độ bảo hành uy tín.
+        </li>
+    </ul>
+    <h3>Tôn chỉ hoạt động</h3>
+
+    Hoàng Hà Mobile luôn hoạt động dựa trên tôn chỉ đặt khách hàng là trung tâm, mọi nỗ lực để đạt được mục tiêu cao
+    nhất là làm hài lòng người dùng thông qua các sản phẩm được cung cấp và dịch vụ khách hàng. Hoàng Hà Mobile đang
+    từng bước xây dựng dịch vụ khách hàng vượt trội, xứng đáng là đơn vị bán lẻ hàng đầu tại Việt Nam. Sự tin tưởng và
+    ủng hộ nhiệt tình của quý khách hàng tại chuỗi chi nhánh đã phần nào khẳng định hiệu quả hoạt động của đội ngũ nhân
+    viên Hoàng Hà Mobile.
+    <br>
+    <br>
+    Đối với quý khách hàng, chúng tôi luôn đặt cái tâm làm gốc, làm việc với tinh thần nghiêm túc, trung thực và có
+    trách nhiệm, để mang tới trải nghiệm dịch vụ tốt nhất.
+    <br>
+    <br>
+    Đối với đồng nghiệp, chúng tôi đề cao văn hóa học hỏi, đoàn kết, tương trợ lẫn nhau tạo nên môi trường làm việc tôn
+    trọng - công bằng - văn minh cho nhân viên trong công ty.
+    <br>
+    <br>
+    Đối với các đối tác, Hoàng Hà Mobile luôn làm việc dựa trên nguyên tắc tôn trọng, cùng tạo ra giá trị cho cộng đồng
+    và cùng phát triển bền vững.
+    <br>
+    <br>
+    <h3>Tầm nhìn và sứ mệnh</h3>
+
+    Những năm qua, chúng tôi không ngừng cải thiện dịch vụ tại các chi nhánh và hỗ trợ khách hàng qua các kênh online.
+    Hoàng Hà Mobile cam kết mang đến những sản phẩm chất lượng và chế độ bảo hành uy tín, sẵn sàng hỗ trợ khách hàng
+    trong thời gian nhanh nhất.
+    <br>
+    <br>
+    Trong tương lai, Hoàng Hà Mobile sẽ tiếp tục mở rộng hệ thống chi nhánh, hướng tới mục tiêu có mặt tại 63 tỉnh thành
+    trên toàn quốc. Đồng thời, nâng cao chất lượng dịch vụ, hạn chế những rủi ro, lắng nghe và tiếp thu góp ý của quý
+    khách hàng nhằm đem đến trải nghiệm tốt nhất khi mua sắm tại Hoàng Hà Mobile.
+    <br>
+    <br>
+    Cuối cùng, Hoàng Hà Mobile hy vọng sẽ trở thành nhà tiên phong đưa những sản phẩm công nghệ mới nhất đến tay người
+    dùng sớm nhất, tạo ra cuộc sống hiện đại nơi công nghệ kết nối con người, công nghệ phục vụ con người
+</article>
+
+<div id="display"></div>
+
+
+</body>
+</html>
+<script>
+    function home() {
+        document.getElementById('introduce').style.display = 'none'
+        document.getElementById('display').style.display = 'none'
+        document.getElementById('home').style.display = 'block'
+    }
+
+    function imfomafion() {
+        document.getElementById('display').style.display = 'none'
+        document.getElementById('home').style.display = 'none'
+        document.getElementById('introduce').style.display = 'block';
+    }
+
+    function logIn() {
+        let checkLogIn = document.getElementById('logIn').innerHTML
+        if (checkLogIn === 'Đăng nhập') {
+            document.getElementById('formLogIn').style.display = 'block'
+        } else {
+            confirm('Bạn có muốn đăng xuất không?')
+            document.getElementById('logIn').innerHTML = 'Đăng nhập'
+            localStorage.setItem('iLogIn', 'false');
+            displayProduct()
+        }
+    }
+
+
+    function submit() {
+        let nameLogIn = document.getElementById('nameLogIn').value
+        let passLogIn = document.getElementById('passLogIn').value
+        if (nameLogIn === localStorage.getItem('username')) {
+            if (passLogIn === localStorage.getItem('password')) {
+                alert('Đăng nhập thành công!')
+                document.getElementById('formLogIn').style.display = 'none'
+                localStorage.setItem('iLogIn', 'true')
+                document.getElementById('logIn').innerHTML = 'Đăng xuất'
+                displayProduct()
+            } else {
+                alert('Vui lòng nhập lại mật khẩu!')
+            }
+        } else alert('Vui lòng nhập lại tên tài khoản!')
+    }
+
+
+    class Product {
+        name
+        price
+        quantity
+        stockQuantity
+        img
+        type
+        id
+
+        constructor(name, price, quantity, img, type, id) {
+            this.name = name
+            this.price = price
+            this.quantity = quantity
+            this.img = img
+            this.type = type
+            this.id = id
+            this.stockQuantity = quantity
+
+        }
+    }
+
+    let product1 = new Product('Iphone 12 Pro', 15000, 100, 'ảnh/ip12pro.jpg', 'iphone', 'sp1');
+    let product2 = new Product('Iphone 12 Pro Max', 5000, 20, 'ảnh/ip12promax.jpg', 'iphone', 'ip2');
+    let product3 = new Product('Iphone 13 Pro', 7000, 50, 'ảnh/ip13pro.jpg', 'iphone', 'ip3');
+    let product4 = new Product('Iphone 13 Pro Max', 9000, 13, 'ảnh/ip13promax.jpg', 'iphone', 'ip4');
+    let product5 = new Product('Iphone 14', 55000, 22, 'ảnh/IP14.jpg', 'iphone', 'ip5');
+    let product6 = new Product('Iphone 14 Plus', 33000, 34, 'ảnh/ip14plus.jpg', 'iphone', 'ip6');
+    let product7 = new Product('Iphone 14 Pro', 27000, 45, 'ảnh/ip14pro.jpg', 'iphone', 'ip7');
+    let product8 = new Product('Iphone 14 Pro Max', 33000, 50, 'ảnh/ip14promax.jpg', 'iphone', 'ip8');
+    let product9 = new Product('Iphone 13', 35000, 42, 'ảnh/iphone13.jpg', 'iphone', 'ip9');
+    let product10 = new Product('Iphone 13 Mini', 40000, 11, 'ảnh/iphone13mini.jpg', 'iphone', 'ip10');
+    let product11 = new Product('Samsung Galaxy S23', 40000, 11, 'ảnh/samsung-galaxy-s23.jpg', 'samsung', 'sp11');
+    let product12 = new Product('Samsung Galaxy Z Flip 3 5G', 40000, 11, 'ảnh/samsung-galaxy-z-flip-3-5g.jpg', 'samsung', 'sp12');
+    let product13 = new Product('Samsung Galaxy Z Fold 3', 40000, 11, 'ảnh/samsung-galaxy-z-fold-3.jpg', 'samsung', 'sp13');
+    let product14 = new Product('Samsung Galaxy S22', 40000, 11, 'ảnh/ss22.jpg', 'samsung', 'sp14');
+    let product15 = new Product('Samsung Galaxy S22 Plus', 40000, 11, 'ảnh/ss22plus.jpg', 'samsung', 'sp15');
+    let product16 = new Product('Samsung Galaxy S22 Ultra', 40000, 11, 'ảnh/ss22ultra.jpg', 'samsung', 'sp16');
+    let product17 = new Product('Samsung Galaxy S23 Plus', 40000, 11, 'ảnh/ss23plus.jpg', 'samsung', 'sp17');
+    let product18 = new Product('Samsung Galaxy S23 Ultra', 40000, 11, 'ảnh/ss23ultra.jpg', 'samsung', 'sp18');
+    let product19 = new Product('Samsung Galaxy S22 5G', 40000, 11, 'ảnh/ss225g.jpg', 'samsung', 'sp19');
+    let product20 = new Product('Samsung Galaxy Z Flip 4', 40000, 11, 'ảnh/zflip4.jpg', 'samsung', 'sp20');
+    let product21 = new Product('Samsung Galaxy Z Fold 4', 40000, 11, 'ảnh/zfold4.jpg', 'samsung', 'sp21');
+
+    let arrayProduct = [product1, product2, product3, product4, product5, product6, product7, product8, product9, product10
+        , product11, product12, product13, product14, product15, product16, product17, product18, product19, product20, product21]
+
+
+    function displayProduct(type = null, keyword = '') {
+        document.getElementById('introduce').style.display = 'none'
+        document.getElementById('home').style.display = 'none'
+        document.getElementById('display').style.display = 'block'
+
+        let iLogIn = localStorage.getItem('iLogIn')
+        let arrayCheckType = arrayProduct.filter(function (product, index, array) {
+            if (type === null) {
+                return product.name.toLowerCase().includes(keyword.toLowerCase())
+            }
+            return product.type === type && product.name.toLowerCase().includes(keyword.toLowerCase())
+        })
+
+        let data = ''
+        for (let i = 0; i < arrayCheckType.length; i++) {
+            data += '<div class="item" style="float: left">';
+            data += `<img class="img" src=${arrayCheckType[i].img} >`
+                + '<h3>' + arrayCheckType[i].name + '</h3>'
+                + ' <span>Giá: <strong style="color: red">' + arrayCheckType[i].price + '</strong></span><br><br>'
+                + '<span>Số lượng: ' + arrayCheckType[i].quantity + '</span><br><br>'
+            if (iLogIn === 'true') {
+                data += '<button onclick="editProduct(' + i + ')">Sửa</button>' +
+                    ' <button onclick="deleteProduct(' + i + ')">Xóa</button>'
+            } else {
+                data += ' <button onclick="addCart(' + i + ')">Thêm vào giỏ hàng</button><br><br>'
+            }
+            data += '</div>'
+        }
+        data += ''
+        document.getElementById('display').innerHTML = data
+    }
+
+    function addProduct() {
+        document.getElementById('addProduct').style.display = 'block'
+    }
+
+    function addSuccess() {
+        let nameAdd = document.getElementById('nameAdd').value
+        let priceAdd = document.getElementById('priceAdd').value
+        let quantityAdd = document.getElementById('quantityAdd').value
+        let imgAdd = document.getElementById('imgAdd').value
+        let typeAdd = document.getElementById('typeAdd').value
+
+        let addProduct = new Product(nameAdd, priceAdd, quantityAdd, imgAdd, typeAdd)
+        console.log(addProduct)
+        if (addProduct.name === '') {
+            alert('Vui lòng thêm tên sản phẩm!')
+        } else {
+            arrayProduct.push(addProduct)
+            alert('Đã thêm thành công!')
+            document.getElementById('addProduct').style.display = 'none'
+            displayProduct()
+        }
+        document.getElementById('nameAdd').value = ''
+        document.getElementById('priceAdd').value = ''
+        document.getElementById('quantityAdd').value = ''
+        document.getElementById('imgAdd').value = ''
+        document.getElementById('typeAdd').value = ''
+    }
+
+    function deleteProduct(id) {
+        confirm('Bạn có chắc chắn muốn xóa hay không?')
+        arrayProduct.splice(id, 1)
+        displayProduct()
+    }
+
+    let index;
+
+    function editProduct(id) {
+        index = id
+        document.getElementById('editProduct').style.display = 'block'
+        document.getElementById('nameEdit').value = arrayProduct[id].name
+        document.getElementById('priceEdit').value = arrayProduct[id].price
+        document.getElementById('quantityEdit').value = arrayProduct[id].quantity
+        document.getElementById('imgEdit').value = arrayProduct[id].img
+        document.getElementById('typeEdit').value = arrayProduct[id].type
+    }
+
+    function updateProduct() {
+        let nameUpdate = document.getElementById('nameEdit').value
+        let priceUpdate = document.getElementById('priceEdit').value
+        let quantityUpdate = document.getElementById('quantityEdit').value
+        let imgUpdate = document.getElementById('imgEdit').value
+        let typeUpdate = document.getElementById('typeEdit').value
+        if (nameUpdate === '') {
+            alert('Vui lòng thêm tên sản phẩm!')
+        } else {
+            arrayProduct[index].name = nameUpdate
+            arrayProduct[index].price = priceUpdate
+            arrayProduct[index].quantity = quantityUpdate
+            arrayProduct[index].img = imgUpdate
+            arrayProduct[index].type = typeUpdate
+            alert('Đã cập nhật sản phẩm thành công!')
+        }
+        document.getElementById('editProduct').style.display = 'none'
+        displayProduct()
+    }
+
+    let localCart = localStorage.getItem('cart')||[]
+    let arrayCart = []
+    if (localCart?.length>0){
+        arrayCart = JSON.parse(localCart)
+    }
+
+    function addCart(i) {
+        let nameAddCart = arrayProduct[i].name
+        let priceAddCart = arrayProduct[i].price
+        let quantityAddCart = 1
+        let imgAddCart = arrayProduct[i].img
+        let typeAddCart = arrayProduct[i].type
+        let id = arrayProduct[i].id
+        let productCart = new Product(nameAddCart, priceAddCart, quantityAddCart, imgAddCart, typeAddCart, id)
+
+        if (arrayProduct[i].quantity > 0) {
+            arrayProduct[i].quantity--
+        } else {
+            alert('Không thể thêm vào giỏ hàng!')
+            return;
+        }
+
+
+        displayProduct()
+
+        let flag = false
+        let count;
+        if (arrayCart.length === 0) {
+            arrayCart.push(productCart)
+        } else {
+            for (let i = 0; i < arrayCart.length; i++) {
+                if (productCart.name === arrayCart[i].name) {
+                    flag = true
+                    count = i
+                    break;
+                }
+            }
+            if (flag) {
+                arrayCart[count].quantity += 1
+            } else {
+                arrayCart.push(productCart)
+            }
+        }
+
+        let checkOnCart = document.getElementById('displayCart').style.display === 'none'
+        if (!checkOnCart) {
+            displayCart()
+        }
+    }
+
+
+    let total = 0;
+
+    function quantityCart(eventTaget, i) {
+        let newQuantity = eventTaget.value
+        let productId = arrayCart[i].id
+        let productIndex = arrayProduct.findIndex(function (element) { //productIndex = chỉ số của pt trong mảng với thuộc tính id = productId
+            return element.id === productId
+        })
+
+        if (productIndex >= 0) {
+            arrayProduct[productIndex].quantity = arrayProduct[productIndex].stockQuantity - newQuantity
+        }
+        if (newQuantity > 0) {
+            arrayCart[i].quantity = newQuantity
+        } else {
+            arrayCart.splice(i, 1)
+        }
+        displayCart()
+        displayProduct()
+    }
+
+    function displayCart() {
+        total = 0
+        let dataCart = '<table>'
+        dataCart += '<tr>' +
+            '<td><b>' + 'Tên sản phẩm' + '</b></td>' +
+            '<td><b>' + ' Giá' + '</b></td>' +
+            '<td><b>' + ' Số lượng' + '</b></td>' +
+            '<td><b>' + 'Thành tiền' + '</b></td>' +
+            '</tr>'
+        for (let i = 0; i < arrayCart.length; i++) {
+            total += arrayCart[i].price * arrayCart[i].quantity
+            dataCart += '<tr>' +
+                '<td>' + arrayCart[i].name + '</td>' +
+                '<td>' + arrayCart[i].price + '</td>' +
+                '<td>' + '<input type="number" value="' + arrayCart[i].quantity + '" min="0" oninput="quantityCart(this,' + i + ')">' + '</td>'+
+                '<td>' + arrayCart[i].price * arrayCart[i].quantity + '</td>' + '<td><button onclick="deleteProductCart()">Xóa</button></td>'
+            dataCart += '</tr>'
+        }
+        dataCart += '<tr style="color: red">' + '<td colspan="3"><b>Tổng thanh toán</b></td>' + '<td id="total"><b>' + total + '</b></td>'
+        dataCart += '</table>'
+        document.getElementById('displayCart_content').innerHTML = dataCart
+        document.getElementById('displayCart').style.display = 'block'
+
+        localStorage.setItem('cart', JSON.stringify(arrayCart))
+    }
+
+</script>
+
+
+

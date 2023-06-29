@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Case Study Module 1</title>
+    <link rel="stylesheet" href="case_style.css">
+</head>
+<body onload="localStorage.setItem('iLogIn', 'false')">
+<div class="banner">
+    <div class="hLeft">
+        <h1><img src="logo.jpg" style=" height: 80px; width: 200px"/></h1>
+
+    </div>
+
+    <div class="hRight">
+        <label><input id="search" type="text" placeholder="Hôm nay bạn cần tìm gì?" style="width: 500px; height: 20px"></label>
+        <button onclick="displayProduct(null,document.getElementById('search').value) ">Tìm kiếm</button>
+        <button>Đăng ký</button>
+        <button onclick="logIn()" id="logIn">Đăng nhập</button>
+    </div>
+
+    <div id="menu">
+        <ul>
+            <li onclick="home()">Trang chủ</li>
+            <li onclick="imfomafion()"> Giới thiệu
+            </li>
+            <ul class="formDisplay" >
+                <li class="display" id="smartphoneDisplay" onclick="displayProduct(null)">Điện thoại</li>
+                <div class="formDisplay-content">
+                    <a id="iphone" onclick="displayProduct('iphone')">Iphone</a>
+                    <a id="samsung" onclick="displayProduct('samsung')">Samsung</a>
+                </div>
+            </ul> 
+            <li>Laptop</li>
+            <li>Phụ kiện</li>
+            <li onclick='addProduct()' id="addButton" style="display: none">Thêm mới</li>
+            <li onclick="displayCart()">Giỏ hàng</li>
+        </ul>
+    </div>
+</div>
+
+<div id="formLogIn" class="formLogIn">
+    <div class="formLogIn-content">
+        <h1>Đăng nhập</h1>
+        <h3>Tài khoản</h3>
+        <input type="text" id="nameLogIn" placeholder="Nhập tên đăng nhập" style="width: 300px; height: 20px">
+        <h3>Mật khẩu</h3>
+        <input type="password" id="passLogIn" placeholder="Nhập mật khẩu đăng nhập" style="width: 300px; height: 20px">
+        <br>
+        <br>
+        <input type="button" value="Submit" onclick="submit()" class="logInbtn">
+        <input type="reset" value="Reset" onclick="reset()" class="logInbtn">
+        <input type="button" value="Cancle" class="logInbtn"
+               onclick="document.getElementById('formLogIn').style.display = 'none'">
+    </div>
+</div>
+
+<div id="addProduct" class="addAndEdit">
+    <fieldset id="formAddProdcut">
+        <h3>Thêm sản phẩm mới</h3>
+        <input type="text" id="nameAdd" placeholder="Tên sản phẩm">
+        <input type="number" id="priceAdd" placeholder="Giá sản phẩm">
+        <input type="number" id="quantityAdd" placeholder="Số lượng sản phẩm">
+        <input type="text" id="imgAdd" placeholder="Link sản phẩm">
+        <input type="text" id="typeAdd" placeholder="Hãng sản phẩm">
+        <button class="logInbtn" onclick="addSuccess()">Thêm mới</button>
+        <button class="logInbtn" onclick="document.getElementById('addProduct').style.display = 'none'">Thoát</button>
+    </fieldset>
+</div>
+
+<div id="editProduct" class="addAndEdit">
+    <fieldset id="formEditProdcut">
+        <h3>Sửa sản phẩm</h3>
+        <input type="text" id="nameEdit" placeholder="Tên sản phẩm">
+        <input type="text" id="priceEdit" placeholder="Giá sản phẩm">
+        <input type="text" id="quantityEdit" placeholder="Số lượng sản phẩm">
+        <input type="text" id="imgEdit" placeholder="Link sản phẩm">
+        <input type="text" id="typeEdit" placeholder="Hãng sản phẩm">
+        <button class="logInbtn" onclick="updateProduct()">Cập nhật</button>
+        <button class="logInbtn" onclick="document.getElementById('editProduct').style.display = 'none'">Thoát</button>
+    </fieldset>
+</div>
+
+<div id="displayCart" class="displayCart" style="display: none">
+    <h1 style="text-align: center">Giỏ hàng</h1>
+    <div id="displayCart_content" class="displayCart_content">
+    </div>
+    <br>
+    <div style="float: right">
+        <button class="logInbtn">Thanh Toán</button>
+        <button class="logInbtn" onclick="document.getElementById('displayCart').style.display = 'none'">Thoát</button>
+
+    </div>
+</div>
+
+<div id="home">
+    <img class="logoBanner" src="ảnh/banner3.jpg"/>
+    <img class="logoBanner" src="ảnh/banner1.jpg"/>
+
+</div>
+
+<div id="introduce" style="display: none">
+    <div>
+        <img class="bannerGt" src="ảnh/hoangha.png"/>
+    </div>
+    <article>
+        <h1 align="center"> Giới thiệu Hoàng Hà Mobile</h1>
+
+        <h3>Giới thiệu chung</h3>
+        Công ty Cổ phần Xây dựng và Đầu tư thương mại Hoàng Hà sở hữu chuỗi cửa hàng Hoàng Hà Mobile - là nhà bán lẻ
+        hàng
+        đầu, chuyên cung cấp các sản phẩm công nghệ chính hãng tại thị trường Việt Nam. Năm 1996, Hoàng Hà Mobile được
+        thành
+        lập, từng bước trở thành địa chỉ đáng tin cậy của người tiêu dùng Việt. Với khẩu hiệu “Nếu những gì chúng tôi
+        không
+        có, nghĩa là bạn không cần”, chúng tôi đã, đang và sẽ tiếp tục nỗ lực đem đến các sản phẩm công nghệ chính hãng
+        đa
+        dạng, phong phú đi kèm mức giá tốt nhất phục vụ nhu cầu của quý khách hàng.
+        <br>
+        <br>
+        Sau hơn 20 năm phát triển, Hoàng Hà Mobile đã trở thành cái tên không còn xa lạ với người tiêu dùng trong nước.
+        Hiện
+        nay chúng tôi đang sở hữu mạng lưới hơn 100 chi nhánh phủ trên khắp cả nước, trong đó bao gồm hai trung tâm bảo
+        hành
+        tại Hà Nội và một trung tâm bảo hành tại thành phố Hồ Chí Minh. Đến với chuỗi cửa hàng của Hoàng Hà Mobile, quý
+        khách có thể hoàn toàn yên tâm về uy tín, chất lượng sản phẩm với mức giá rẻ hơn khoảng 15-20% so với giá bán
+        trên
+        thị trường. Song song với đó, chúng tôi cũng luôn nỗ lực phục vụ đem đến trải nghiệm dịch vụ tốt nhất cho khách
+        hàng.
+        <br>
+        <br>
+        <h3>Những dấu mốc quan trọng</h3>
+        <ul>
+            <li> Năm 1996: Thành lập cửa hàng Hoàng Hà Mobile đầu tiên tọa lạc trên con phố sầm uất của Thủ đô Hà Nội ở
+                địa
+                chỉ 194 Lê Duẩn.
+            </li>
+            <li>Năm 2000: Hoàng Hà Mobile chính thức trở thành nhà phân phối ĐTDĐ chính hãng hợp tác với nhiều nhãn hàng
+                lớn
+                hàng đầu như Samsung, OPPO, Nokia, Huawei,...
+            </li>
+            <li> Năm 2006: Với kinh nghiệm 10 năm trong lĩnh vực bán lẻ, Hoàng Hà Mobile phát triển mạnh mẽ và liên tục
+                mở
+                thêm nhiều chi nhánh mới.
+            </li>
+            <li> Năm 2016: Kỉ niệm 20 năm hoạt động trong lĩnh vực bán lẻ các sản phẩm công nghệ, Hoàng Hà Mobile đã
+                khẳng
+                định được chỗ đứng vững chắc trên thị trường cũng như trong tiềm thức người tiêu dùng.
+            </li>
+            <li> Năm 2019: Hoàng Hà Mobile chính thức hợp tác với ông lớn ngành viễn thông MobiFone Việt Nam mở chuỗi
+                chi
+                nhánh bán hàng liên kết, nâng tổng số chi nhánh tới hơn 60, đồng thời phủ khắp 30 tỉnh thành trên cả
+                nước.
+                Kể từ đó, Hoàng Hà Mobile liên tục đồng hành cùng MobiFone tổ chức các sự kiện lớn nhỏ.
+            </li>
+            <li> Năm 2020: Hoàng Hà Mobile tự hào trở thành nhà bán lẻ ủy quyền chính thức của Apple tại Việt Nam. Các
+                sản
+                phẩm Apple chính hãng VN/A do Apple Việt Nam phân phối được bán tại hệ thống Hoàng Hà Mobile với mức giá
+                tốt
+                nhất thị trường cùng chế độ bảo hành uy tín.
+            </li>
+        </ul>
+        <h3>Tôn chỉ hoạt động</h3>
+
+        Hoàng Hà Mobile luôn hoạt động dựa trên tôn chỉ đặt khách hàng là trung tâm, mọi nỗ lực để đạt được mục tiêu cao
+        nhất là làm hài lòng người dùng thông qua các sản phẩm được cung cấp và dịch vụ khách hàng. Hoàng Hà Mobile đang
+        từng bước xây dựng dịch vụ khách hàng vượt trội, xứng đáng là đơn vị bán lẻ hàng đầu tại Việt Nam. Sự tin tưởng
+        và
+        ủng hộ nhiệt tình của quý khách hàng tại chuỗi chi nhánh đã phần nào khẳng định hiệu quả hoạt động của đội ngũ
+        nhân
+        viên Hoàng Hà Mobile.
+        <br>
+        <br>
+        Đối với quý khách hàng, chúng tôi luôn đặt cái tâm làm gốc, làm việc với tinh thần nghiêm túc, trung thực và có
+        trách nhiệm, để mang tới trải nghiệm dịch vụ tốt nhất.
+        <br>
+        <br>
+        Đối với đồng nghiệp, chúng tôi đề cao văn hóa học hỏi, đoàn kết, tương trợ lẫn nhau tạo nên môi trường làm việc
+        tôn
+        trọng - công bằng - văn minh cho nhân viên trong công ty.
+        <br>
+        <br>
+        Đối với các đối tác, Hoàng Hà Mobile luôn làm việc dựa trên nguyên tắc tôn trọng, cùng tạo ra giá trị cho cộng
+        đồng
+        và cùng phát triển bền vững.
+        <br>
+        <br>
+        <h3>Tầm nhìn và sứ mệnh</h3>
+
+        Những năm qua, chúng tôi không ngừng cải thiện dịch vụ tại các chi nhánh và hỗ trợ khách hàng qua các kênh
+        online.
+        Hoàng Hà Mobile cam kết mang đến những sản phẩm chất lượng và chế độ bảo hành uy tín, sẵn sàng hỗ trợ khách hàng
+        trong thời gian nhanh nhất.
+        <br>
+        <br>
+        Trong tương lai, Hoàng Hà Mobile sẽ tiếp tục mở rộng hệ thống chi nhánh, hướng tới mục tiêu có mặt tại 63 tỉnh
+        thành
+        trên toàn quốc. Đồng thời, nâng cao chất lượng dịch vụ, hạn chế những rủi ro, lắng nghe và tiếp thu góp ý của
+        quý
+        khách hàng nhằm đem đến trải nghiệm tốt nhất khi mua sắm tại Hoàng Hà Mobile.
+        <br>
+        <br>
+        Cuối cùng, Hoàng Hà Mobile hy vọng sẽ trở thành nhà tiên phong đưa những sản phẩm công nghệ mới nhất đến tay
+        người
+        dùng sớm nhất, tạo ra cuộc sống hiện đại nơi công nghệ kết nối con người, công nghệ phục vụ con người
+    </article>
+</div>
+
+<div id="display"></div>
+
+<footer>
+    <div class="container">
+        <div class="bg">
+            <div class="col-content">
+                <div>
+                    <h4>Hỗ Trợ - Dịch Vụ</h4>
+                    <ul>
+                        <li>Mua hàng trả góp</li>
+                        <li>Hướng dẫn đặt hàng và thanh toán</li>
+                        <li>Tra cứu đơn hàng</li>
+                        <li>Chính sách bảo hành</li>
+                        <li>Phạm vi, điều khoản gói bảo hành mở rộng</li>
+                        <li>Chính sách bảo mật</li>
+                        <li>Chính sách giải quyết khiếu nại</li>
+                        <li>Điều khoản mua bán hàng hóa</li>
+                        <li>Câu hỏi thường gặp</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Thông tin liên hệ</h4>
+                    <ul>
+                        <li>Bán hàng Online</li>
+                        <li>Chăm sóc khách hàng</li>
+                        <li>Dịch vụ sửa chwuax Hoàng Hà Care</li>
+                        <li>Liên hệ khối văn phòng</li>
+                        <li>Hợp tác kinh doanh</li>
+                        <li>Tra cứu bảo hành</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Tổng đài</h4>
+                    <p>1900.2091</p>
+                </div>
+                <div>
+                    <h4>Thanh toán miễn phí</h4>
+                    <ul class="logo">
+                        <li>
+                            <img class="logo" src="ảnh/visa.png">
+                            <img class="logo" src="ảnh/mastercar.jpg">
+                        </li>
+                        <li>
+                            <img class="logo" src="ảnh/zalopay.jpg">
+                            <img class="logo" src="ảnh/vnpay.jpg ">
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="logo">
+                        <h4>Hình thức vận chuyêển</h4>
+                        <li>
+                            <img class="logo" src="ảnh/nhattin.png">
+                            <img class="logo" src="ảnh/vnpost.jpg ">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <p>© 2020. CÔNG TY CỔ PHẦN XÂY DỰNG VÀ ĐẦU TƯ THƯƠNG MẠI HOÀNG HÀ. MST: 0106713191. (Đăng ký lần đầu:
+                    Ngày 15 tháng 12 năm 2014, Đăng ký thay đổi ngày 24/11/2022)</p>
+                <p><strong>GP số 426/GP-TTĐT do sở TTTT Hà Nội cấp ngày 22/01/2021</strong></p>
+                <p><strong>Địa chỉ: Số 89 Đường Tam Trinh, Phường Mai Động, Quận Hoàng Mai, Thành Phố Hà Nội, Việt Nam.
+                    Điện thoại: 1900.2091. Chịu trách nhiệm nội dung: </strong></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+<script src="case.js"></script>
+</html>
